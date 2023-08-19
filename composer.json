@@ -1,0 +1,65 @@
+{
+  "name": "kalimahapps/daleel",
+  "description": "PHP documentation markdown and API generator",
+  "keywords": [
+    "documentation",
+    "api",
+    "markdown",
+    "phpdoc"
+  ],
+  "homepage": "https://daleel.kalimah-apps.com/docs/",
+  "readme": "https://github.com/kalimahapps/daleel#readme",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Abdul Al-Hasany",
+      "email": "info@kalimahapps.com"
+    }
+  ],
+  "require": {
+    "eftec/bladeone": "^4.9",
+    "phpdocumentor/type-resolver": "^1.7.2",
+    "phpdocumentor/reflection-common": "^2.2",
+    "phpdocumentor/reflection-docblock": "^5.3",
+    "phpdocumentor/reflection": "^5.3",
+    "nikic/php-parser": "^4.16",
+    "psr/log": "^3.0",
+    "php": "^8.1",
+    "league/commonmark": "^2.4",
+    "spatie/commonmark-highlighter": "^3.0",
+    "symfony/console": "^6.3",
+    "symfony/filesystem": "^6.3",
+    "symfony/yaml": "^6.3",
+    "symfony/http-client": "^6.3"
+  },
+  "scripts": {
+    "test": "vendor/bin/pest --coverage"
+  },
+  "autoload": {
+    "psr-4": {
+      "Console\\": "src"
+    },
+    "classmap": [
+      "src"
+    ],
+    "files": [
+      "./src/phptypes.php"
+    ]
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.9"
+  },
+  "config": {
+    "platform": {
+      "php": "8.1"
+    },
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "bin": [
+    "bin/daleel"
+  ]
+}

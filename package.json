@@ -1,0 +1,19 @@
+{
+  "name": "daleel",
+  "private": true,
+  "description": "Documentation generator for PHP",
+  "scripts": {
+    "tw:watch": "pnpx tailwindcss -i ./src/template/css/app.css -o ./src/template/css/output.css --watch",
+    "tw:build": "pnpx tailwindcss -i ./src/template/css/app.css -o ./src/template/css/output.css --minify"
+  },
+  "keywords": [
+    "PHP",
+    "phpdoc"
+  ],
+  "author": "Abdul Al-Hasany",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "tailwindcss": "^3.3.3"
+  }
+}

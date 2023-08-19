@@ -1,0 +1,35 @@
+{
+	"ignore": [
+		"**/vendor/**"
+	],
+	"rules": {
+		"psr/indent": {
+			"type": "tab",
+			"length": 1
+		},
+		"taqwim/method.complexity": {
+			"max": 11
+		},
+		"taqwim/method.max-depth": {
+			"max": 4
+		},
+		"taqwim/max-lines": {
+			"function": 150
+		},
+		"docblock/spacing": {
+			"align": true
+		},
+		"psr/line-limit": {
+			"code": 120
+		},
+		"psr/brace-style": {
+			"style": "1tbs"
+		},
+		"psr/spacing.pair": {
+			"align": true
+		},
+		"psr/spacing.assignment": {
+			"align": true
+		}
+	}
+}

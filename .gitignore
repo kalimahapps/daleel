@@ -1,0 +1,9 @@
+vendor/**
+node_modules/**
+src/logs/**
+doctum.phar
+.vscode/settings.json
+cache/**
+build/**
+coverage
+daleel-temp
