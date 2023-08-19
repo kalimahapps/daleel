@@ -244,8 +244,9 @@ class Config {
 		}
 
 		// Search in top level config
+		$value = $this->final_config;
 		foreach ($keys as $key) {
-			$value = isset($this->final_config[$key]) ? $this->final_config[$key] : false;
+			$value = isset($value[$key]) ? $value[$key] : false;
 		}
 
 		return $value;
