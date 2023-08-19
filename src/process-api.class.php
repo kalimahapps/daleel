@@ -105,7 +105,6 @@ class ProcessApiDocs {
 	 */
 	private function createTree(Finder $files) {
 		$files = iterator_to_array($files);
-		$files = array_splice($files, 0, 100);
 
 		// creates a new progress bar
 		$progress_bar = $this->console->createProgressBar(count($files));
