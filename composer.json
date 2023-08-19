@@ -32,7 +32,8 @@
     "symfony/console": "^6.3",
     "symfony/filesystem": "^6.3",
     "symfony/yaml": "^6.3",
-    "symfony/http-client": "^6.3"
+    "symfony/http-client": "^6.3",
+    "symfony/finder": "^6.3"
   },
   "scripts": {
     "test": "vendor/bin/pest --coverage"

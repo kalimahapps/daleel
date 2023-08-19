@@ -1,6 +1,17 @@
 #!/usr/bin/env php
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+
+// Used when Daleel is required by composer.
+$vendor_path = dirname(__DIR__, 4) . '/vendor/autoload.php';
+
+// Used when running locally.
+$local_path = dirname(__DIR__) . '/vendor/autoload.php';
+
+if (file_exists($vendor_path)) {
+	include_once $vendor_path;
+} else {
+	include_once $local_path;
+}
 
 use Symfony\Component\Console\Application;
 use KalimahApps\Daleel\Commands\{BuildDoc, ServeDoc};
