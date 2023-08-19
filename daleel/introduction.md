@@ -13,4 +13,5 @@ The word "Daleel" means "Guide" in Arabic.
 - Google Analytics support
 
 ## Example
-The current that you are reading is generated using Daleel.
+- The current documentation that you are reading is generated using Daleel.
+- [Laravel](https://daleel.kalimah-apps.com/laravel/): This is a non-official documentation for Laravel. It is generated using Daleel. You might find some broken links or unstyled components which is due to the data source being external.
