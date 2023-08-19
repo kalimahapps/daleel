@@ -9,7 +9,7 @@ $config->defineConfig(array(
 		'output_path'    => './build',
 		'title'          => 'Daleel',
 		'favicon'        => './media/favicon.png',
-		'logo'           => './media/logo.svg',
+		'logo'           => './media/logo.png',
 		'social_links'   => array(
 			'github'  => array(
 				'link' => 'https://github.com/kalimahapps/daleel',
