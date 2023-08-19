@@ -78,7 +78,7 @@ $config->defineConfig(array(
 				'nav'          => array(
 					array(
 						'label' => 'Getting Started',
-						'link'  => 'introduction',
+						'link'  => 'usage',
 					),
 				),
 				'edit_url'     => 'https://github.com/abdul-alhasany/daleel/edit/master/daleel/',
