@@ -1,4 +1,6 @@
 @php($css_file = \KalimahApps\Daleel\BladeUtil::getRootLink('css/output.css'))
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>
     {{ !empty($page_title) ? $page_title . ' | ' : '' }}
@@ -9,6 +11,9 @@
     <link rel="icon" type="image/x-icon"
         href="/{{ \KalimahApps\Daleel\BladeUtil::getConfig('favicon') }}" />
 @endif
+
+<meta name="description"
+    content="{{ \KalimahApps\Daleel\BladeUtil::getConfig('main.subtitle') }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
