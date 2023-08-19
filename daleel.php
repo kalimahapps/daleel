@@ -1,12 +1,15 @@
 <?php
 use KalimahApps\Daleel\Config;
 
+$head = '<meta name="og:image" content="https://daleel.kalimah-apps.com/docs/logo.png">
+	<meta name="twitter:image" content="https://daleel.kalimah-apps.com/docs/logo.png">';
+
 $config = Config::getInstance();
 $config->defineConfig(array(
 		'output_path'    => './build',
 		'title'          => 'Daleel',
 		'favicon'        => './media/favicon.png',
-		'logo'           => './media/logo.png',
+		'logo'           => './media/logo.svg',
 		'social_links'   => array(
 			'github'  => array(
 				'link' => 'https://github.com/kalimahapps/daleel',
@@ -15,6 +18,7 @@ $config->defineConfig(array(
 				'link' => 'https://twitter.com/KalimahApps',
 			),
 		),
+		'head'           => $head,
 		'base_path'      => 'docs',
 		'main'           => array(
 			'subtitle' => 'Generate beautiful documentation for your PHP projects.',

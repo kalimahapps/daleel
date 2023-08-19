@@ -19,14 +19,12 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en">
 <meta property="og:site_name"
-    content="{{ \KalimahApps\Daleel\BladeUtil::getConfig('title') }}">
+    content=" {{ !empty($page_title) ? $page_title . ' | ' : '' }}
+    {{ \KalimahApps\Daleel\BladeUtil::getConfig('title') }}">
 <meta property="og:description"
     content="{{ \KalimahApps\Daleel\BladeUtil::getConfig('main.subtitle') }}">
-<meta name="og:image"
-    content="/{{ \KalimahApps\Daleel\BladeUtil::getConfig('logo') }}">
-<meta name="twitter:image"
-    content="/{{ \KalimahApps\Daleel\BladeUtil::getConfig('logo') }}">
 
+{!! \KalimahApps\Daleel\BladeUtil::getConfig('head') !!}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link

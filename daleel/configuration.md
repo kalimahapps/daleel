@@ -69,6 +69,17 @@ If set to `true`, the generated URLs will be clean. For example, instead of `/1.
 
 Default: `false`
 
+### head
+Add custom HTML to the `<head>` tag.
+
+Default: `null`
+
+example:
+```php
+'head' => '<meta name="description" content="Daleel is a PHP documentation generator. It both generates documentation from PHP source code and also from Markdown files. It creates a beautiful documentation website for your project.">',
+```
+
+
 ### footer
 The footer text. It should be an array of strings. Each string will be displayed in a separate line. You can use HTML tags in the strings.
 
