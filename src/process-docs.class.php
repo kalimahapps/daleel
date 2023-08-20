@@ -10,9 +10,9 @@ use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use League\CommonMark\Node\Query;
 use League\CommonMark\Node\Block\Document as MarkdownDocument;
 use Symfony\Component\Finder\Finder;
-use KalimahApps\Daleel\{ViewBuilder, Config};
 use KalimahApps\Daleel\Containers\ContainerExtension;
-use KalimahApps\Daleel\InternalLinkExtension;
+use KalimahApps\Daleel\{InternalLinkExtension, ImagePathExtension, ViewBuilder, Config};
+use KalimahApps\Daleel\CodeHighlighter\{CodeHighlighterExtension};
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Extension\{
@@ -20,8 +20,6 @@ use League\CommonMark\Extension\{
 	GithubFlavoredMarkdownExtension
 };
 use League\CommonMark\Node\StringContainerHelper;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
-use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Throwable;
 
 /**
@@ -49,6 +47,49 @@ class ProcessDocs {
 	private ViewBuilder $view_builder;
 
 	/**
+	 * @var array Markdown converter config
+	 */
+	private $markdown_config = array(
+		'heading_permalink' => array(
+			'apply_id_to_heading' => true,
+			'id_prefix'           => '',
+			'fragment_prefix'     => '',
+			'symbol'              => '#',
+			'heading_class'       => 'scroll-mt-20 relative group',
+			'html_class'          => 'absolute -translate-x-full pr-2 opacity-0 font-normal group-hover:opacity-100 transition-opacity duration-200 ease-in-out',
+		),
+		'highlighter'       => array(
+			'add_default_class' => true,
+		),
+		'container'         => array(
+			'default_titles' => array(
+				'info'    => 'INFO',
+				'tip'     => 'TIP',
+				'warning' => 'WARNING',
+				'danger'  => 'DANGER',
+			),
+		),
+		'table'             => array(
+			'wrap' => array(
+				'enabled'    => true,
+				'tag'        => 'div',
+				'attributes' => array('class' => 'table-wrapper'),
+			),
+		),
+		'external_link'     => array(
+			'open_in_new_window' => true,
+			'html_class'         => 'external-link',
+			'noopener'           => 'external',
+			'noreferrer'         => 'external',
+		),
+	);
+
+	/**
+	 * @var MarkdownConverter $converter Markdown converter
+	 */
+	private $converter;
+
+	/**
 	 * Build link tree and create HTML files.
 	 *
 	 * @param SymfonyStyle $console input/output interface
@@ -58,6 +99,21 @@ class ProcessDocs {
 
 		$this->config       = Config::getInstance();
 		$this->view_builder = ViewBuilder::getInstance();
+
+		$environment = new Environment($this->markdown_config);
+		$environment->addExtension(new CodeHighlighterExtension());
+		$environment->addExtension(new InternalLinkExtension());
+		$environment->addExtension(new ImagePathExtension());
+		$environment->addExtension(new CommonMarkCoreExtension());
+		$environment->addExtension(new FrontMatterExtension());
+		$environment->addExtension(new GithubFlavoredMarkdownExtension());
+		$environment->addExtension(new HeadingPermalinkExtension());
+		$environment->addExtension(new ContainerExtension());
+		$environment->addExtension(new ExternalLinkExtension());
+
+		// $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(array('php')));
+		// $environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer(array('php')));
+		$this->converter = new MarkdownConverter($environment);
 	}
 
 	/**
@@ -135,55 +191,6 @@ class ProcessDocs {
 
 		$final_tree = array();
 
-		$markdown_config = array(
-			'heading_permalink' => array(
-				'apply_id_to_heading' => true,
-				'id_prefix'           => '',
-				'fragment_prefix'     => '',
-				'symbol'              => '#',
-				'heading_class'       => 'scroll-mt-20 relative group',
-				'html_class'          => 'absolute -translate-x-full pr-2 opacity-0 font-normal group-hover:opacity-100 transition-opacity duration-200 ease-in-out',
-			),
-			'highlighter'       => array(
-				'add_default_class' => true,
-			),
-			'container'         => array(
-				'default_titles' => array(
-					'info'    => 'INFO',
-					'tip'     => 'TIP',
-					'warning' => 'WARNING',
-					'danger'  => 'DANGER',
-				),
-			),
-			'table'             => array(
-				'wrap' => array(
-					'enabled'    => true,
-					'tag'        => 'div',
-					'attributes' => array('class' => 'table-wrapper'),
-				),
-			),
-			'external_link'     => array(
-				'open_in_new_window' => true,
-				'html_class'         => 'external-link',
-				'noopener'           => 'external',
-				'noreferrer'         => 'external',
-			),
-		);
-
-		$environment = new Environment($markdown_config);
-		$environment->addExtension(new InternalLinkExtension());
-		$environment->addExtension(new ImagePathExtension());
-		$environment->addExtension(new CommonMarkCoreExtension());
-		$environment->addExtension(new FrontMatterExtension());
-		$environment->addExtension(new GithubFlavoredMarkdownExtension());
-		$environment->addExtension(new HeadingPermalinkExtension());
-		$environment->addExtension(new ContainerExtension());
-		$environment->addExtension(new ExternalLinkExtension());
-		$environment->addRenderer(FencedCode::class, new FencedCodeRenderer(array('php')));
-		$environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer(array('php')));
-
-		$converter = new MarkdownConverter($environment);
-
 		foreach ($files as $file) {
 			$absolute_file_path = $file->getRealPath();
 			$file_name          = $file->getFilename();
@@ -203,7 +210,7 @@ class ProcessDocs {
 				// Read file content
 				$file_data = file_get_contents($absolute_file_path);
 
-				$data = $converter->convert($file_data);
+				$data = $this->converter->convert($file_data);
 
 				// Create a nested TOC from level 2 and 3 headings
 				$document = $data->getDocument();

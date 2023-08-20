@@ -202,12 +202,15 @@ pre {
 }
 
 .prose pre code {
-    line-height: 1.7 !important;
+    line-height: 2 !important;
     @apply text-sm;
+
+    .line{
+        @apply block;
+    }
 
     .highlighted {
         background-color: rgba(0,0,0,0.5);
-        display: inline-block;
         margin: 0 -14px;
         padding: 0 14px;
         width: calc(100% + 28px);
