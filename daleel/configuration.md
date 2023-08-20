@@ -91,6 +91,15 @@ For example, if the documentation is in `http://example.com/docs`, then the base
 
 Default: `null`
 
+### assets_path
+The path to the assets directory. This is where static assets like images are located. The folder will be copied as is to the output directory.
+
+Default: `null`
+
+```php
+'assets_path' => 'images'
+```
+
 ### main
 An array of properties related to the main page. The main page is the home page of the documentation.
 

@@ -2,6 +2,7 @@
 namespace KalimahApps\Daleel;
 
 use eftec\bladeone\BladeOne;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Builder for blade views.
@@ -205,6 +206,21 @@ class ViewBuilder {
 			$extension           = pathinfo($favicon_file, PATHINFO_EXTENSION);
 			$target_favicon_path = Common::getPosixPath("{$this->output_path}/favicon.{$extension}");
 			copy($favicon_file, $target_favicon_path);
+		}
+
+		// Copy assets folder
+		$assets_folder = $this->config->getConfig('assets_path');
+		if (!empty($assets_folder)) {
+			// Does folder exist
+			if (!file_exists($assets_folder)) {
+				throw new \Exception("Assets folder not found: $assets_folder");
+			}
+
+			$asset_folder_name  = basename($assets_folder);
+			$target_assets_path = Common::getPosixPath("{$this->output_path}/{$asset_folder_name}");
+
+			$file_system = new Filesystem();
+			$file_system->mirror($assets_folder, $target_assets_path);
 		}
 	}
 
