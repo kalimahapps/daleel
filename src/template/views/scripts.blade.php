@@ -28,6 +28,6 @@
         }
         gtag('js', new Date());
 
-        gtag('config', {{ $gtag }});
+        gtag('config', '{{ $gtag }}');
     </script>
 @endif
