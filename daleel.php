@@ -18,6 +18,7 @@ $config->defineConfig(array(
 				'link' => 'https://twitter.com/KalimahApps',
 			),
 		),
+		'gtag'           => 'G-FGLP92B854',
 		'head'           => $head,
 		'base_path'      => 'docs',
 		'main'           => array(
