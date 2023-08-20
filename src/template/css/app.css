@@ -181,7 +181,7 @@ pre {
     @apply my-2;
 }
 
-.external-link::after{
+.external-link:not(:has(img))::after {
     @apply inline-block ml-1 text-[0.7em] font-normal;
     font-family: bootstrap-icons !important;
     font-variant: normal;
@@ -193,12 +193,16 @@ pre {
     content: "\F1C5";
 }
 
+.prose a img {
+    @apply inline-block my-0;
+}
+
 .prose pre {
     @apply relative;
 }
 
 .prose pre code {
-    line-height: 1.7;
+    line-height: 1.7 !important;
     @apply text-sm;
 
     .highlighted {
