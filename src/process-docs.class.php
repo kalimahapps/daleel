@@ -172,6 +172,7 @@ class ProcessDocs {
 
 		$environment = new Environment($markdown_config);
 		$environment->addExtension(new InternalLinkExtension());
+		$environment->addExtension(new ImagePathExtension());
 		$environment->addExtension(new CommonMarkCoreExtension());
 		$environment->addExtension(new FrontMatterExtension());
 		$environment->addExtension(new GithubFlavoredMarkdownExtension());

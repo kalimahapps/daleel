@@ -49,11 +49,14 @@ class Common {
 	 * This function will prepend the `/{version}/{build_folder}` to the link.
 	 * It will also add `.html` to the end of the link if configured.
 	 *
-	 * @param array $path    Path to the file
-	 * @param mixed $version Version to add to the start of the path
-	 * @return string        Link to the file
+	 * @param array $path              Path to the file
+	 * @param mixed $version           Version to add to the start of the path
+	 * @param bool  $process_extension Whether to add check if extension should
+	 *                                 be added to the end of the path
+	 *
+	 * @return string Link to the file
 	 */
-	static public function prepareLink(array $path, $version = null): string {
+	static public function prepareLink(array $path, $version = null, $process_extension = true): string {
 		// Add version and folder name to the beginning of the path
 		$current_version = $version ?? Config::getInstance()->getCurrentVersion();
 		$base_path       = Config::getInstance()->getConfig('base_path');
@@ -71,11 +74,15 @@ class Common {
 			array_unshift($path, $base_path);
 		}
 
-		// Add .html to the end of the path if configured
-		$add_html_extension = Config::getInstance()->getConfig('clean_url');
+		if ($process_extension === false) {
+			return '/' . implode('/', $path);
+		}
 
+		$clear_url = Config::getInstance()->getConfig('clean_url');
+
+		// Add .html to the end of the path if configured
 		$extension = '.html';
-		if ($add_html_extension) {
+		if ($clear_url === true) {
 			$extension = '';
 		}
 

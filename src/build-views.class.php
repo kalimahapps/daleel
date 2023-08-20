@@ -76,8 +76,6 @@ class ViewBuilder {
 		$show_breadcrumbs = $build_folder === 'api';
 
 		$this->share('config', array(
-
-				// 'build_folder'     => $build_folder,
 				'show_breadcrumbs' => $show_breadcrumbs,
 				'current_version'  => $current_version,
 			), false);
@@ -207,8 +205,12 @@ class ViewBuilder {
 			$target_favicon_path = Common::getPosixPath("{$this->output_path}/favicon.{$extension}");
 			copy($favicon_file, $target_favicon_path);
 		}
+	}
 
-		// Copy assets folder
+	/**
+	 * Copy version assets (css, js, images .. etc) to output folder.
+	 */
+	public function copyVersionAssets() {
 		$assets_folder = $this->config->getConfig('assets_path');
 		if (!empty($assets_folder)) {
 			// Does folder exist
@@ -216,8 +218,11 @@ class ViewBuilder {
 				throw new \Exception("Assets folder not found: $assets_folder");
 			}
 
-			$asset_folder_name  = basename($assets_folder);
-			$target_assets_path = Common::getPosixPath("{$this->output_path}/{$asset_folder_name}");
+			$asset_folder_name = basename($assets_folder);
+			$current_version   = $this->config->getCurrentVersion();
+			$version_path      = "{$this->output_path}/{$current_version}";
+
+			$target_assets_path = Common::getPosixPath("{$version_path}/{$asset_folder_name}");
 
 			$file_system = new Filesystem();
 			$file_system->mirror($assets_folder, $target_assets_path);

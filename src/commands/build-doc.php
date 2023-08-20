@@ -134,6 +134,8 @@ class BuildDoc extends Command {
 					// Get errors from markdown docs
 					$errors = array_merge($errors, $markdown_docs->getErrors());
 				}
+
+				ViewBuilder::getInstance()->copyVersionAssets();
 			}
 
 			ViewBuilder::getInstance()->copyAssets();
