@@ -266,9 +266,9 @@ class BladeUtil {
 
 		$docs_index    = !empty($version_data['docs_index']) ? $version_data['docs_index'] : '';
 		$project_index = !empty($version_data['project_index']) ? $version_data['project_index'] : '';
+		$base_path     = Config::getInstance()->getConfig('base_path');
 
 		// check if docs path is set, if so, then use docs index otherwise use project index
-		// $index_page = !empty($version_data['docs_path']) ? $docs_index : $project_index;
 		$index_page = '';
 
 		if (!empty($version_data['docs_path'])) {
@@ -281,6 +281,14 @@ class BladeUtil {
 		if (!empty($index_page)) {
 			$extention  = $clean_url ? '' : '.html';
 			$index_page = "{$index_page}{$extention}";
+		}
+
+		if (!empty($base_path)) {
+			$base_path = rtrim($base_path, '/');
+			$base_path = ltrim($base_path, '/');
+			$base_path = "/{$base_path}";
+
+			return "{$base_path}/{$version_key}/{$index_page}";
 		}
 
 		return "/{$version_key}/{$index_page}";
