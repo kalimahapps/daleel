@@ -19,13 +19,11 @@ class CodeHighlighter {
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $autodetect_languages Languages to autodetect
 	 */
-	public function __construct(array $autodetect_languages = array()) {
+	public function __construct() {
 		$this->highlighter = new Highlighter();
 
-		$this->highlighter->setAutodetectLanguages($autodetect_languages);
+		$this->highlighter->setAutodetectLanguages(array('php'));
 	}
 
 	/**

@@ -111,8 +111,6 @@ class ProcessDocs {
 		$environment->addExtension(new ContainerExtension());
 		$environment->addExtension(new ExternalLinkExtension());
 
-		// $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(array('php')));
-		// $environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer(array('php')));
 		$this->converter = new MarkdownConverter($environment);
 	}
 

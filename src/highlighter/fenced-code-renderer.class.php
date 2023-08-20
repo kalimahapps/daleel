@@ -24,11 +24,9 @@ class FencedCodeRenderer implements NodeRendererInterface {
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $autodetect_languages Languages to autodetect
 	 */
-	public function __construct(array $autodetect_languages = array()) {
-		$this->highlighter   = new CodeHighlighter($autodetect_languages);
+	public function __construct() {
+		$this->highlighter   = new CodeHighlighter();
 		$this->base_renderer = new BaseFencedCodeRenderer();
 	}
 
