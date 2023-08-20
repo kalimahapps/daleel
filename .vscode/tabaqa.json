@@ -5,6 +5,9 @@
 			"editor.formatOnSave": false,
 			"editor.trimAutoWhitespace": false,
 			"files.trimTrailingWhitespace": false
+		},
+		"[css]": {
+			"editor.formatOnSave": false
 		}
 	}
 }
