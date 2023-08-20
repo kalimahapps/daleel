@@ -252,6 +252,16 @@ array(
 Please note that `docs_index` has priority over `project_index`. If both are set, `docs_index` will be used.
 :::
 
+
+### assets_path
+The path to the assets directory. This is where static assets like images are located. The folder will be copied as is to the output directory. It is useful if you want to add images to the docs.
+
+Default: `null`
+
+```php
+'assets_path' => 'images'
+```
+
 ### exclude
 An array of files and directories to be excluded from the documentation. The paths should be relative to the project directory. Glob patterns are not supported.
 
@@ -380,15 +390,6 @@ Default: `null`
 example:
 ```php
 'edit_url' => 'Link to the root of the repository'
-```
-
-### assets_path
-The path to the assets directory. This is where static assets like images are located. The folder will be copied as is to the output directory.
-
-Default: `null`
-
-```php
-'assets_path' => 'images'
 ```
 
 ### notice

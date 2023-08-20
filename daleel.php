@@ -40,6 +40,7 @@ $config->defineConfig(array(
 				'project_path' => '.',
 				'docs_path'    => 'daleel',
 				'docs_index'   => 'introduction',
+				'assets_path'  => 'images',
 				'exclude'      => array(
 					'vendor',
 					'test',

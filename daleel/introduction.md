@@ -12,7 +12,12 @@ The word "Daleel" means "Guide" in Arabic.
 - Search (using algolia)
 - Google Analytics support
 
-## Example
+## Examples
 - The current documentation that you are reading is generated using Daleel.
 - [Laravel](https://daleel.kalimah-apps.com/laravel/): This is a non-official documentation for Laravel. It is generated using Daleel. You might find some broken links or unstyled components which is due to the data source being external.
 - [CommonMarkdown](https://daleel.kalimah-apps.com/commonmark/): This is a non-official documentation for CommonMark (The parser that Daleel uses to parse Markdown files). It is generated using Daleel. You might find some broken links or unstyled components which is due to the data source being external.
+
+## Screenshots
+- Running Daleel in CLI. It will show you a progress bar and a summary of the generated documentation.
+
+![Cli Screenshot](/images/cli-screenshot.png)
