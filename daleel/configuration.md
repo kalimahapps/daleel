@@ -11,35 +11,34 @@ Configuration for the project should be add to `daleel.php` file in the working 
 use KalimahApps\Daleel\Config;
 
 $config = Config::getInstance();
-$config->defineConfig(array(
-		'output_path'    => './build',
-		'title'          => 'Daleel',
-		'favicon'        => './media/favicon.ico',
-		'logo'           => './media/logo.png',
-		'footer'         => array(
-			'Hello from footer',
-		),
-		'base_path'      => '',
-		'social_links' => array(),
-		'main'           => array(
-			'subtitle' => 'Generate beautiful documentation for your PHP projects.',
-			'buttons'  => array(
-				array(
-					'label' => 'Get Started',
-					'link'  => '/1.0/introduction.html',
-				),
-				array(
-					'label' => 'GitHub',
-					'link'  => '',
-				),
-			),
-		),
-		'latest_version' => '1.0',
-		'versions'       => array(
-			'1.0' => array()
-		),
-	)
-);
+$config->defineConfig([
+	'output_path'    => './build',
+	'title'          => 'Daleel',
+	'favicon'        => './media/favicon.ico',
+	'logo'           => './media/logo.png',
+	'footer'         => [
+		'Hello from footer',
+	],
+	'base_path'      => '',
+	'social_links' => [],
+	'main'           => [
+		'subtitle' => 'Generate beautiful documentation for your PHP projects.',
+		'buttons'  => [
+			[
+				'label' => 'Get Started',
+				'link'  => '/1.0/introduction.html',
+			],
+			[
+				'label' => 'GitHub',
+				'link'  => '',
+			],
+		],
+	],
+	'latest_version' => '1.0',
+	'versions'       => [
+		'1.0' => []
+	],
+]);
 ```
 ## Top-level configuration
 These configuration options are relevant to the whole project.
@@ -83,7 +82,7 @@ example:
 ### footer
 The footer text. It should be an array of strings. Each string will be displayed in a separate line. You can use HTML tags in the strings.
 
-Default: `array()`
+Default: `[]`
 
 ### base_path
 If documentation is not in the root directory of the project, you can set the base path here. The path should be relative to the domain root.
@@ -102,20 +101,20 @@ Default: `''`
 #### main.buttons
 An array of buttons to be displayed below the subtitle. Each button should be an array with two keys: `label` and `link`. The `label` key is the text of the button, and the `link` key is the link to the button. The link can be relative or absolute.
 
-Default: `array()`
+Default: `[]`
 
 example:
 ```php
-array(
-	array(
+[
+	[
 		'label' => 'Get Started',
 		'link'  => '/1.0/introduction.html',
-	),
-	array(
+	],
+	[
 		'label' => 'GitHub',
 		'link'  => 'https://github.com/kalimahapps',
-	),
-)
+	],
+]
 ```
 :::tip
 You can use `{{latest_version}}` tag in the link to build a link to the latest version. For example, if you want to build a link to the latest version of the introduction page, you can use `/{{latest_version}}/introduction.html`.
@@ -125,16 +124,16 @@ You can use `{{latest_version}}` tag in the link to build a link to the latest v
 An array of social links to be displayed in the header. Each link should be an array with two keys: `label` and `link`. The `label` key is the tooltip title of the link, and the `link` is the href of the link.
 
 ```php
-'social_links' => array(
-	array(
+'social_links' => [
+	[
 		'label' => 'GitHub',
 		'link'  => 'LINK',
-	),
-	array(
+	],
+	[
 		'label' => 'Twitter',
 		'link'  => 'LINK',
-	),
-)
+	],
+]
 ```
 
 Daleel supports the following social links:
@@ -159,18 +158,18 @@ Default: `null`
 These configuration options are relevant to a specific version of the project. You can add as many versions as you want. `versions` is an array of versions. For example, if you want to add version `1.0` and `2.0`, you can do it like this:
 
 ```php
-'versions' => array(
-	'1.0' => array(
+'versions' => [
+	'1.0' => [
 		'project_path' => '.',
 		'docs_path' => './docs',
-		'exclude' => array(),
-		'search' => array(),
-		'nav' => array(),
-		'sidebar' => array(),
+		'exclude' => [],
+		'search' => [],
+		'nav' => [],
+		'sidebar' => [],
 		'edit_url' => '',
-	),
-	'2.0' => array(),
-)
+	],
+	'2.0' => [],
+]
 ```
 
 Version key can be any string. It will be used to build links to the version. For example, if you have a version `1.0`, then the link to the version will be `/1.0/`, or if you have a version `2.x`, then the link to the version will be `/2.x/`.
@@ -181,19 +180,19 @@ This can be a string representing the path relative to the working directory. Al
 
 example:
 ```php
-array(
+[
 	'project_path' => './src'
-)
+]
 ```
 
 or
 ```php
-array(
-	'project_path' => array(
+[
+	'project_path' => [
 		'url' => 'https://github.com/laravel/framework/archive/refs/heads/10.x.zip',
 		'dir' => './src',
-	)
-)
+	]
+]
 ```
 The above example will download the `10.x` branch of Laravel framework from GitHub and then process the files inside the `src` directory.
 
@@ -207,19 +206,19 @@ This can be a string representing the path relative to the working directory. Al
 
 example:
 ```php
-array(
+[
 	'docs_path' => './docs'
-)
+]
 ```
 
 or
 ```php
-array(
-	'docs_path' => array(
+[
+	'docs_path' => [
 		'url' => 'https://github.com/laravel/docs/archive/refs/heads/10.x.zip',
 		'dir' => './docs',
-	)
-)
+	]
+]
 ```
 :::warning
 Please note that `sidebar` will be ignored if `docs_path` is not set.
@@ -232,9 +231,9 @@ Default: `''`
 
 example:
 ```php
-array(
+[
 	'docs_index' => 'introduction'
-)
+]
 ```
 
 ### project_index
@@ -244,9 +243,9 @@ Default: `''`
 
 example:
 ```php
-array(
+[
 	'project_index' => 'KalimahApps'
-)
+]
 ```
 :::warning
 Please note that `docs_index` has priority over `project_index`. If both are set, `docs_index` will be used.
@@ -265,16 +264,16 @@ Default: `null`
 ### exclude
 An array of files and directories to be excluded from the documentation. The paths should be relative to the project directory. Glob patterns are not supported.
 
-Default: `array()`
+Default: `[]`
 
 example:
 ```php
-array(
-	'exclude' => array(
+[
+	'exclude' => [
 		'Console',
 		'Exceptions',
-	)
-)
+	]
+]
 ```
 
 ### search
@@ -283,57 +282,57 @@ This is the configuration to enable algolia search. If you don't configure this,
 First, you need to apply for access to the [Algolia DocSearch](https://docsearch.algolia.com/) program. Once you get access, you will get an `app_id`, `api_key` and `index_name`. You need to add these to the configuration. Example:
 
 ```php
-'search' => array(
-	'options' => array(
+'search' => [
+	'options' => [
 		'app_id'     => 'APP ID',
 		'api_key'    => 'API KEY',
 		'index_name' => 'INDEX NAME',
-	)
-)
+	]
+]
 ```
 
 ### nav
 An array of navigation links to be displayed in the header. Each link should be an array with two keys: `label` and `link`. The `label` key is the text of the link, and the `link` is the href of the link.
 
 ```php
-'nav' => array(
-	array(
+'nav' => [
+	[
 		'label' => 'Changelog',
 		'link'  => 'changelog',
-	),
-	array(
+	],
+	[
 		'label' => 'Contributing',
 		'link'  => 'contributing',
-	),
-)
+	],
+]
 ```
 
 You can add a dropdown menu by adding a `items` to the array. The `items` key should be an array of links.
 
 ```php
-'nav' => array(
-	array(
+'nav' => [
+	[
 		'label' => 'Changelog',
 		'link'  => 'changelog',
-	),
-	array(
+	],
+	[
 		'label' => 'Contributing',
 		'link'  => 'contributing',
-	),
-	array(
+	],
+	[
 		'label' => 'Dropdown',
-		'items' => array(
-			array(
+		'items' => [
+			[
 				'label' => 'Item 1',
 				'link'  => 'item-1',
-			),
-			array(
+			],
+			[
 				'label' => 'Item 2',
 				'link'  => 'item-2',
-			),
-		),
-	),
-)
+			],
+		],
+	],
+]
 ```
 
 :::warning
@@ -344,34 +343,34 @@ Please note that `nav` only supports one level of dropdown menu.
 An array of arrays. Each array represents a sidebar section. Each section should have a `label` and `items` keys. The `label` key is the title of the section, and the `items` key is an array of links. Each link should have a `label` and `link` keys. The `label` key is the text of the link, and the `link` is the href of the link.
 
 ```php
-'sidebar' => array(
-	array(
+'sidebar' => [
+	[
 		'label' => 'Section 1',
-		'items' => array(
-			array(
+		'items' => [
+			[
 				'label' => 'Item 1',
 				'link'  => 'item-1',
-			),
-			array(
+			],
+			[
 				'label' => 'Item 2',
 				'link'  => 'item-2',
-			),
-		),
-	),
-	array(
+			],
+		],
+	],
+	[
 		'label' => 'Section 2',
-		'items' => array(
-			array(
+		'items' => [
+			[
 				'label' => 'Item 1',
 				'link'  => 'item-1',
-			),
-			array(
+			],
+			[
 				'label' => 'Item 2',
 				'link'  => 'item-2',
-			),
-		),
-	),
-)
+			],
+		],
+	],
+]
 ```
 
 :::info
@@ -401,10 +400,10 @@ Default: `null`
 
 example:
 ```php
-'notice' => array(
+'notice' => [
 	'type' => 'warning',
 	'message' => 'This is a warning message',
-)
+]
 ```
 
 :::tip
@@ -420,4 +419,3 @@ example:
 ```php
 'gtag' => 'UA-xxxxxxxxx-x'
 ```
-

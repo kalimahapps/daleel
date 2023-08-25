@@ -19,7 +19,7 @@ class ProcessApiDocs {
 	/**
 	 * @var array Array of namespaces
 	 */
-	private $namespaces_list = array();
+	private $namespaces_list = [];
 
 	/**
 	 * @var SymfonyStyle $console input/output interface
@@ -29,7 +29,7 @@ class ProcessApiDocs {
 	/**
 	 * @var array Array of errors
 	 */
-	private $errors = array();
+	private $errors = [];
 
 	/**
 	 * @var ProgressBar $view_builder_progress Progress bar for building views
@@ -66,7 +66,7 @@ class ProcessApiDocs {
 		$project_path = $config->getConfig('project_path');
 
 		if (empty($exclude)) {
-			$exclude = array();
+			$exclude = [];
 		}
 		$finder = new Finder();
 		$finder->files()->in($project_path)->notPath($exclude)->name('*.php');
@@ -113,7 +113,7 @@ class ProcessApiDocs {
 		$factory = new ParserFactory();
 		$parser  = $factory->create(ParserFactory::PREFER_PHP7);
 
-		$final_tree       = array();
+		$final_tree       = [];
 		$docblock_factory = DocBlockFactory::createInstance();
 
 		// Setup visitor with docblock factory dependency
@@ -168,13 +168,13 @@ class ProcessApiDocs {
 	 * @return array      Sorted tree
 	 */
 	private function sortAndCountTree(array $tree): array {
-		$extract_section = array(
+		$extract_section = [
 			'namespaces' => 'Namespaces',
 			'classes'    => 'Classes',
 			'interfaces' => 'Interfaces',
 			'traits'     => 'Traits',
 			'functions'  => 'Functions',
-		);
+		];
 
 		foreach ($extract_section as $key => $label) {
 			if (empty($tree[$key])) {
@@ -204,8 +204,8 @@ class ProcessApiDocs {
 	 * @param array $path Path to current element
 	 * @return array      aggregated tree
 	 */
-	private function buildSidebarTree(array $tree, array $path = array()) {
-		$sidebar_tree = array();
+	private function buildSidebarTree(array $tree, array $path = []) {
+		$sidebar_tree = [];
 		foreach ($tree as $key => $data) {
 			if ($key !== 'namespaces') {
 				continue;
@@ -217,11 +217,11 @@ class ProcessApiDocs {
 
 				$nested_namespace = $this->buildSidebarTree($namespace_data, $namespace_path);
 
-				$sidebar_tree[] = array(
+				$sidebar_tree[] = [
 					'label'    => $namespace,
 					'children' => $nested_namespace,
 					'link'     => Common::prepareLink($namespace_path),
-				);
+				];
 			}
 		}
 		return $sidebar_tree;
@@ -234,32 +234,32 @@ class ProcessApiDocs {
 	 * @return array             Table of contents
 	 */
 	private function buildObjectToc($object_data) {
-		$toc = array();
+		$toc = [];
 
-		$extract_section = array(
+		$extract_section = [
 			'constants'  => 'Constants',
 			'properties' => 'Properties',
 			'methods'    => 'Methods',
-		);
+		];
 
 		foreach ($extract_section as $key => $label) {
-			$section_data = $object_data[$key] ?? array();
+			$section_data = $object_data[$key] ?? [];
 
 			if (count($section_data) === 0) {
 				continue;
 			}
 
-			$children = array();
+			$children = [];
 			foreach ($object_data[$key] as $child_key => $child_data) {
-				$children[$child_key] = array(
+				$children[$child_key] = [
 					'label' => $child_key,
-				);
+				];
 			}
 
-			$toc[$key] = array(
+			$toc[$key] = [
 				'label'    => $label,
 				'children' => $children,
-			);
+			];
 		}
 
 		return $toc;
@@ -273,30 +273,30 @@ class ProcessApiDocs {
 	 * @param array $title          Title of current element
 	 * @return array                aggregated tree
 	 */
-	private function buildNamespaceData($namespace_data, array $path, array $title = array()) {
-		$data            = array();
-		$extract_section = array(
+	private function buildNamespaceData($namespace_data, array $path, array $title = []) {
+		$data            = [];
+		$extract_section = [
 			'namespaces' => 'Namespaces',
 			'classes'    => 'Classes',
 			'interfaces' => 'Interfaces',
 			'traits'     => 'Traits',
 			'functions'  => 'Functions',
-		);
+		];
 
 		foreach ($extract_section as $key => $section_title) {
 			if (empty($namespace_data[$key])) {
 				continue;
 			}
 
-			$children = array();
+			$children = [];
 			foreach ($namespace_data[$key] as $label => $child_data) {
-				$child_path       = array_merge($path, array($label));
-				$full_child_label = array_merge($title, array($label));
+				$child_path       = array_merge($path, [$label]);
+				$full_child_label = array_merge($title, [$label]);
 
-				$children_data = array(
+				$children_data = [
 					'label' => implode('\\', $full_child_label),
 					'link'  => Common::prepareLink($child_path),
-				);
+				];
 
 				// Find nested namespaces and add them to the children
 				if (!empty($child_data['namespaces'])) {
@@ -308,10 +308,10 @@ class ProcessApiDocs {
 				$children[] = $children_data;
 			}
 
-			$data[] = array(
+			$data[] = [
 				'label'    => $section_title,
 				'children' => $children,
-			);
+			];
 		}
 
 		return $data;
@@ -324,26 +324,26 @@ class ProcessApiDocs {
 	 * @param array $path        Path to current element
 	 * @param array $breadcrumbs Breadcrumbs to current element
 	 */
-	private function buildHtml($tree, $path = array(), $breadcrumbs = array()) {
+	private function buildHtml($tree, $path = [], $breadcrumbs = []) {
 		$this->view_builder_progress->advance();
 
 		// Clear shared var before building new one
 		// because it might leak into other views
 		$this->view_builder->shareMultiple(
-			array(
-				'toc'          => array(),
-				'breadcrumbs'  => array(),
+			[
+				'toc'          => [],
+				'breadcrumbs'  => [],
 				'active_route' => '',
-			)
+			]
 		);
 
-		$kinds = array(
+		$kinds = [
 			'namespaces' => 'namespace',
 			'classes'    => 'class',
 			'interfaces' => 'interface',
 			'traits'     => 'trait',
 			'functions'  => 'function',
-		);
+		];
 
 		foreach ($tree as $key => $data) {
 			if ($key === 'namespaces') {
@@ -353,30 +353,28 @@ class ProcessApiDocs {
 
 					$link                    = Common::prepareLink($namespace_path);
 					$namespace_breadcrumbs   = $breadcrumbs;
-					$namespace_breadcrumbs[] = array(
+					$namespace_breadcrumbs[] = [
 						'label' => $namespace,
 						'link'  => $link,
-					);
-					$this->view_builder->shareMultiple(
-						array(
-							'breadcrumbs'  => $namespace_breadcrumbs,
-							'active_route' => $link,
-							'page_title'   => "{$namespace} namespace",
-						)
-					);
+					];
+					$this->view_builder->shareMultiple([
+						'breadcrumbs'  => $namespace_breadcrumbs,
+						'active_route' => $link,
+						'page_title'   => "{$namespace} namespace",
+					]);
 
 					$this->view_builder->buildView(
 						implode('/', $path),
 						$namespace,
 						'namespace-index',
-						array('namespace_data' => $this->buildNamespaceData($namespace_data, $namespace_path))
+						['namespace_data' => $this->buildNamespaceData($namespace_data, $namespace_path)]
 					);
 
 					$this->buildHtml($namespace_data, $namespace_path, $namespace_breadcrumbs);
 				}
 			}
 
-			if (in_array($key, array('classes', 'traits', 'interfaces'))) {
+			if (in_array($key, ['classes', 'traits', 'interfaces'])) {
 				foreach ($data as $object_key => $object_data) {
 					$object_path   = $path;
 					$object_path[] = $object_key;
@@ -384,22 +382,22 @@ class ProcessApiDocs {
 					$link = Common::prepareLink($object_path);
 
 					$object_breadcrumbs   = $breadcrumbs;
-					$object_breadcrumbs[] = array(
+					$object_breadcrumbs[] = [
 						'label' => $object_key,
 						'link'  => $link,
-					);
+					];
 
 					$object_data['link'] = $link;
 					$object_data['kind'] = $kinds[$key];
 
 					$toc = $this->buildObjectToc($object_data);
 					$this->view_builder->shareMultiple(
-						array(
+						[
 							'toc'          => $toc,
 							'breadcrumbs'  => $object_breadcrumbs,
 							'active_route' => $link,
 							'page_title'   => "{$object_key} {$kinds[$key]}",
-						)
+						]
 					);
 
 					$this->view_builder->buildView(
@@ -421,27 +419,27 @@ class ProcessApiDocs {
 					$link = Common::prepareLink($function_path);
 
 					$function_breadcrumbs   = $breadcrumbs;
-					$function_breadcrumbs[] = array(
+					$function_breadcrumbs[] = [
 						'label' => $function_key,
 						'link'  => $link,
-					);
+					];
 
 					$function_data['link'] = $link;
 					$function_data['kind'] = $kinds[$key];
 
 					$this->view_builder->shareMultiple(
-						array(
+						[
 							'breadcrumbs'  => $function_breadcrumbs,
 							'active_route' => $link,
 							'page_title'   => "{$function_key} {$kinds[$key]}",
-						)
+						]
 					);
 
 					$this->view_builder->buildView(
 						implode('/', $path),
 						$function_key,
 						'function',
-						array('function_data' => $function_data, 'function_key' => $function_key)
+						['function_data' => $function_data, 'function_key' => $function_key]
 					);
 				}
 			}

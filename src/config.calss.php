@@ -10,16 +10,16 @@ class Config {
 	/**
 	 * @var array Default config
 	 */
-	private $default_config = array(
+	private $default_config = [
 		'output_path' => './build',
 		'title'       => '',
-		'footer'      => array(),
+		'footer'      => [],
 
 		/**
 		 * If `clean_url` is set to `true`, `.html` will be removed from links.
 		 */
 		'clean_url'   => false,
-	);
+	];
 
 	/**
 	 * @var Config $instance Config instance
@@ -29,7 +29,7 @@ class Config {
 	/**
 	 * @var array $final_config Final config
 	 */
-	private $final_config = array();
+	private $final_config = [];
 
 	/**
 	 * The current version the docs are being built for.
@@ -108,7 +108,7 @@ class Config {
 	 * @return array       Updated footer array
 	 */
 	private function updateFooter(array $value): array {
-		return array_merge($value, array('Powered by <a target="_blank" href="https://daleel.kalimah-apps.com/docs">Daleel</a>'));
+		return array_merge($value, ['Powered by <a target="_blank" href="https://daleel.kalimah-apps.com/docs">Daleel</a>']);
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Config {
 	 * @return array       Updated sidebar links
 	 */
 	private function updateNestedLinks($array, $version = null) {
-		$updated_array = array();
+		$updated_array = [];
 		foreach ($array as $array_data) {
 			if (!empty($array_data['link'])) {
 				$link    = ltrim($array_data['link'], '/');
@@ -260,7 +260,7 @@ class Config {
 	public function getSidebar() {
 		$sidebar = $this->getConfig('sidebar');
 		if ($sidebar === false) {
-			return array();
+			return [];
 		}
 		return $this->updateNestedLinks($sidebar);
 	}
@@ -271,7 +271,7 @@ class Config {
 	public function getNavbar() {
 		$navbar = $this->getConfig('nav');
 		if ($navbar === false) {
-			return array();
+			return [];
 		}
 		return $this->updateNestedLinks($navbar);
 	}

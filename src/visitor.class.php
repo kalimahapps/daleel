@@ -30,32 +30,32 @@ class Visitor extends NodeVisitorAbstract {
 	/**
 	 * @var array Array of classes
 	 */
-	private $classes = array();
+	private $classes = [];
 
 	/**
 	 * @var array Array of traits
 	 */
-	private $traits = array();
+	private $traits = [];
 
 	/**
 	 * @var array Array of interfaces
 	 */
-	private $interfaces = array();
+	private $interfaces = [];
 
 	/**
 	 * @var array Array of uses
 	 */
-	private $uses = array();
+	private $uses = [];
 
 	/**
 	 * @var
 	 */
-	private $functions = array();
+	private $functions = [];
 
 	/**
 	 * @var array Hierarchy tree of namespaces, classes, methods .. etc
 	 */
-	private $tree = array();
+	private $tree = [];
 
 	/**
 	 * @var DocBlockFactory Docblock factory dependency
@@ -120,7 +120,7 @@ class Visitor extends NodeVisitorAbstract {
 		}
 
 		if ($implements) {
-			$interfaces = array();
+			$interfaces = [];
 			foreach ($implements as $interface) {
 				$interfaces[] = $interface->toString();
 			}
@@ -128,7 +128,7 @@ class Visitor extends NodeVisitorAbstract {
 		}
 
 		if ($trait_uses) {
-			$traits = array();
+			$traits = [];
 			foreach ($trait_uses as $trait_use) {
 				foreach ($trait_use->traits as $trait) {
 					$traits[] = $trait->toString();
@@ -208,12 +208,12 @@ class Visitor extends NodeVisitorAbstract {
 	 */
 	public function beforeTraverse(array $nodes) {
 		$this->is_namespaced = false;
-		$this->tree          = array();
-		$this->classes       = array();
-		$this->traits        = array();
-		$this->interfaces    = array();
-		$this->uses          = array();
-		$this->functions     = array();
+		$this->tree          = [];
+		$this->classes       = [];
+		$this->traits        = [];
+		$this->interfaces    = [];
+		$this->uses          = [];
+		$this->functions     = [];
 	}
 
 	/**
@@ -239,19 +239,19 @@ class Visitor extends NodeVisitorAbstract {
 		* 			'namespaces' => array(
 		* 				'Auth' => array(
 		* 					'namespaces' => array(
-		* 						'Access' => array()
+		* 						'Access' => []
 		* 					)
 		* 				)
 		* 			)
 		* 		)
 		* 	)
 		*/
-		$namespace_tree = array('namespaces' => array());
+		$namespace_tree = array('namespaces' => []);
 		foreach ($parts as $part) {
 			if (!isset($parent)) {
 				$parent = &$namespace_tree;
 			}
-			$parent['namespaces'][$part] = array();
+			$parent['namespaces'][$part] = [];
 			$parent = &$parent['namespaces'][$part];
 		}
 
@@ -336,7 +336,7 @@ class Visitor extends NodeVisitorAbstract {
 	 * @return array                         Array of properties
 	 */
 	private function processMembers($nodes, $type) {
-		$members = array();
+		$members = [];
 		foreach ($nodes as $node) {
 			// Get name and default value
 			if ($type === 'property') {
@@ -350,14 +350,14 @@ class Visitor extends NodeVisitorAbstract {
 			}
 
 			// Get docblock data
-			$members[$name]['docblock'] = array();
+			$members[$name]['docblock'] = [];
 
 			$comment = $node->getDocComment();
 			if ($comment) {
 				$dockblock = $this->processDocBlock($comment->getText());
 
 				// Aggregate description from summary, description and var tag
-				$description = array();
+				$description = [];
 				if (!empty($dockblock['summary'])) {
 					$description[] = $dockblock['summary'];
 				}
@@ -406,12 +406,12 @@ class Visitor extends NodeVisitorAbstract {
 	 * @return array               Array of methods with extracted data
 	 */
 	private function processMethods(array $nodes) {
-		$methods = array();
+		$methods = [];
 		foreach ($nodes as $node) {
 			$name = $node->name->toString();
 
 			// Get docblock data
-			$methods[$name]['docblock'] = array();
+			$methods[$name]['docblock'] = [];
 
 			$comment = $node->getDocComment();
 			if ($comment) {
@@ -499,7 +499,7 @@ class Visitor extends NodeVisitorAbstract {
 
 		$objects = array_merge($classes, $traits, $interfaces);
 
-		$list = array();
+		$list = [];
 		foreach ($objects as $object) {
 			$list[] = $this->namespace . '\\' . $object;
 		}

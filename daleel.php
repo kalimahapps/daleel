@@ -5,89 +5,89 @@ $head = '<meta name="og:image" content="https://daleel.kalimah-apps.com/docs/log
 	<meta name="twitter:image" content="https://daleel.kalimah-apps.com/docs/logo.png">';
 
 $config = Config::getInstance();
-$config->defineConfig(array(
+$config->defineConfig([
 		'output_path'    => './build',
 		'title'          => 'Daleel',
 		'favicon'        => './media/favicon.png',
 		'logo'           => './media/logo.png',
-		'social_links'   => array(
-			'github'  => array(
+		'social_links'   => [
+			'github'  => [
 				'link' => 'https://github.com/kalimahapps/daleel',
-			),
-			'twitter' => array(
+			],
+			'twitter' => [
 				'link' => 'https://twitter.com/KalimahApps',
-			),
-		),
+			],
+		],
 		'gtag'           => 'G-FGLP92B854',
 		'head'           => $head,
 		'base_path'      => 'docs',
-		'main'           => array(
+		'main'           => [
 			'subtitle' => 'Generate beautiful documentation for your PHP projects.',
-			'buttons'  => array(
-				array(
+			'buttons'  => [
+				[
 					'label' => 'Get Started',
 					'link'  => '/docs/{{latest_version}}/introduction.html',
-				),
-				array(
+				],
+				[
 					'label' => 'GitHub',
 					'link'  => 'https://github.com/kalimahapps/daleel',
-				),
-			),
-		),
+				],
+			],
+		],
 		'latest_version' => '1.x',
-		'versions'       => array(
-			'1.x' => array(
+		'versions'       => [
+			'1.x' => [
 				'project_path' => '.',
 				'docs_path'    => 'daleel',
 				'docs_index'   => 'introduction',
 				'assets_path'  => 'images',
-				'exclude'      => array(
+				'exclude'      => [
 					'vendor',
 					'test',
-				),
-				'sidebar'      => array(
-					array(
+				],
+				'sidebar'      => [
+					[
 						'label' => 'Getting Started',
-						'items' => array(
-							array(
+						'items' => [
+							[
 								'label' => 'Introduction',
 								'link'  => 'introduction',
-							),
-							array(
+							],
+							[
 								'label' => 'Usage',
 								'link'  => 'usage',
-							),
-							array(
+							],
+							[
 								'label' => 'Configuration',
 								'link'  => 'configuration',
-							),
-							array(
+							],
+							[
 								'label' => 'Writing',
 								'link'  => 'writing',
-							),
-						),
-					),
-					array(
+							],
+						],
+					],
+					[
 						'label' => 'Contributing',
-						'items' => array(
-							array(
+						'items' => [
+							[
 								'label' => 'Development',
 								'link'  => 'development',
-							),
-							array(
+							],
+							[
 								'label' => 'Stack',
 								'link'  => 'stack',
-							),
-						),
-					),
-				),
-				'nav'          => array(
-					array(
+							],
+						],
+					],
+				],
+				'nav'          => [
+					[
 						'label' => 'Getting Started',
 						'link'  => 'usage',
-					),
-				),
+					],
+				],
 				'edit_url'     => 'https://github.com/abdul-alhasany/daleel/edit/master/daleel/',
-			),
-		),
-	));
+			],
+		],
+	]);

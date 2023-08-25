@@ -26,7 +26,7 @@ class ViewBuilder {
 	/**
 	 * @var
 	 */
-	private array $shared_data = array();
+	private array $shared_data = [];
 
 	/**
 	 * @var
@@ -75,10 +75,10 @@ class ViewBuilder {
 
 		$show_breadcrumbs = $build_folder === 'api';
 
-		$this->share('config', array(
+		$this->share('config', [
 				'show_breadcrumbs' => $show_breadcrumbs,
 				'current_version'  => $current_version,
-			), false);
+			], false);
 	}
 
 	/**
@@ -135,7 +135,7 @@ class ViewBuilder {
 		string $path,
 		string $file_name,
 		string $template,
-		array $data = array()
+		array $data = []
 	) {
 		$content = $this->blade_one->run($template, $data);
 
@@ -150,7 +150,7 @@ class ViewBuilder {
 	 *
 	 * @param array $data Extra data to pass to template
 	 */
-	public function buildIndexView(array $data = array()) {
+	public function buildIndexView(array $data = []) {
 		$content = $this->blade_one->run('index', $data);
 
 		$file_path = "{$this->output_path}/index.html";
@@ -165,7 +165,7 @@ class ViewBuilder {
 	 * @param string $template Template name
 	 * @param array  $data     Extra data to pass to template
 	 */
-	public function getView(string $template, array $data = array()) {
+	public function getView(string $template, array $data = []) {
 		return $this->blade_one->run($template, $data);
 	}
 

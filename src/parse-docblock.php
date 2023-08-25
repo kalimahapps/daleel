@@ -16,7 +16,7 @@ class ParseDocBlock {
 	/**
 	 * @var array $this->docblock_data Docblock data
 	 */
-	private $docblock_data = array();
+	private $docblock_data = [];
 
 	/**
 	 * Reference to current tag.
@@ -53,11 +53,11 @@ class ParseDocBlock {
 		$description = $docblock->getDescription()->render();
 		$description = $this->converter->convert($description);
 
-		$this->docblock_data = array(
+		$this->docblock_data = [
 			'summary'     => $this->unwrapParagraphs($summary),
 			'description' => $this->unwrapParagraphs($description),
-			'tags'        => array(),
-		);
+			'tags'        => [],
+		];
 
 		$tags = $docblock->getTags();
 		foreach ($tags as $tag) {
@@ -155,10 +155,10 @@ class ParseDocBlock {
 			$types[$key] = $this->resolveType($type);
 		}
 
-		$this->docblock_data['tags']['params'][$name] = array(
+		$this->docblock_data['tags']['params'][$name] = [
 			'types'       => $types,
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -167,9 +167,9 @@ class ParseDocBlock {
 	private function processExampleTag() {
 		$tag_name = $this->current_tag->getName();
 
-		$this->docblock_data['tags'][$tag_name] = array(
+		$this->docblock_data['tags'][$tag_name] = [
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -183,10 +183,10 @@ class ParseDocBlock {
 		foreach ($types as $key => $type) {
 			$types[$key] = $this->resolveType($type);
 		}
-		$this->docblock_data['tags'][$tag_name] = array(
+		$this->docblock_data['tags'][$tag_name] = [
 			'types'       => $types,
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -195,10 +195,10 @@ class ParseDocBlock {
 	private function processDeprecatedTag() {
 		$tag_name = $this->current_tag->getName();
 
-		$this->docblock_data['tags'][$tag_name] = array(
+		$this->docblock_data['tags'][$tag_name] = [
 			'version'     => $this->current_tag->getVersion(),
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -207,9 +207,9 @@ class ParseDocBlock {
 	private function processDescriptionTag() {
 		$tag_name = $this->current_tag->getName();
 
-		$this->docblock_data['tags'][$tag_name] = array(
+		$this->docblock_data['tags'][$tag_name] = [
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -218,10 +218,10 @@ class ParseDocBlock {
 	private function processLinkTag() {
 		$tag_name = $this->current_tag->getName();
 
-		$this->docblock_data['tags'][$tag_name] = array(
+		$this->docblock_data['tags'][$tag_name] = [
 			'link'        => $this->current_tag->getLink(),
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**
@@ -240,10 +240,10 @@ class ParseDocBlock {
 			$description = $reference;
 		}
 
-		$this->docblock_data['tags'][$tag_name][] = array(
+		$this->docblock_data['tags'][$tag_name][] = [
 			'link'        => $reference,
 			'description' => $this->getDescription(),
-		);
+		];
 	}
 
 	/**

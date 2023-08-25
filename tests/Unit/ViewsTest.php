@@ -24,14 +24,14 @@ test('Single view', function() {
 		$config = Config::getInstance();
 		$config->defineConfig(array(
 				'title'    => 'Daleel',
-				'versions' => array(),
+				'versions' => [],
 			));
 
 		$view_builder = ViewBuilder::getInstance();
 		$view_builder->setBuildFolder();
 		$view_builder->shareMultiple(
 			array(
-				'toc'          => array(),
+				'toc'          => [],
 				'page_title'   => 'Test page',
 				'active_route' => 'test/data',
 			)
@@ -49,14 +49,14 @@ test('Object view', function() {
 		$config = Config::getInstance();
 		$config->defineConfig(array(
 				'title'    => 'Daleel',
-				'versions' => array(),
+				'versions' => [],
 			));
 
 		$view_builder = ViewBuilder::getInstance();
 		$view_builder->setBuildFolder();
 		$view_builder->shareMultiple(
 			array(
-				'toc'          => array(),
+				'toc'          => [],
 				'active_route' => 'test/data',
 			)
 		);
@@ -68,7 +68,7 @@ test('Object view', function() {
 					'summary'     => 'Object summary',
 					'description' => 'Object description',
 				),
-				'extends'    => array(),
+				'extends'    => [],
 				'methods'    => array(
 					'isActiveRoute' => array(
 						'visibility' => 9,

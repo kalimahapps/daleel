@@ -34,7 +34,7 @@ class ProcessDocs {
 	/**
 	 * @var array Array of errors
 	 */
-	private $errors = array();
+	private $errors = [];
 
 	/**
 	 * @var
@@ -127,7 +127,7 @@ class ProcessDocs {
 		}
 
 		if (empty($exclude)) {
-			$exclude = array();
+			$exclude = [];
 		}
 
 		$finder = new Finder();
@@ -187,7 +187,7 @@ class ProcessDocs {
 		$progress_bar = $this->console->createProgressBar(count($files));
 		$progress_bar->setFormat(Common::getProgressBarFormat('Building views', $this->console));
 
-		$final_tree = array();
+		$final_tree = [];
 
 		foreach ($files as $file) {
 			$absolute_file_path = $file->getRealPath();
@@ -223,7 +223,7 @@ class ProcessDocs {
 					array(
 						'toc'          => $toc,
 						'page_title'   => $title,
-						'active_route' => array(),
+						'active_route' => [],
 						'file_path'    => "{$path_without_filename}/{$file_name}",
 					)
 				);
@@ -299,7 +299,7 @@ class ProcessDocs {
 			->where(Query::type(Heading::class))
 			->findAll($document);
 
-		$toc = array();
+		$toc = [];
 
 		// Hold last h2 id to add h3s to it
 		$last_h2_id = '';
@@ -314,13 +314,13 @@ class ProcessDocs {
 			if ($level === 2) {
 				$toc[$heading_id] = array(
 					'label'    => $heading_content,
-					'children' => array(),
+					'children' => [],
 				);
 				$last_h2_id = $heading_id;
 			} else if ($level === 3) {
 				$toc[$last_h2_id]['children'][$heading_id] = array(
 					'label'    => $heading_content,
-					'children' => array(),
+					'children' => [],
 				);
 			}
 		}

@@ -85,7 +85,7 @@ class CodeHighlighter {
 	private function parseLangAndLines(?string $language) {
 		$parsed = array(
 			'lang'  => $language,
-			'lines' => array(),
+			'lines' => [],
 		);
 
 		if ($language === null) {

@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\DocBlockFactory;
 test('Build doc', function() {
 		$command        = new Commands\BuildDoc();
 		$command_tester = new CommandTester($command);
-		$command_tester->execute(array());
+		$command_tester->execute([]);
 		$command_tester->assertCommandIsSuccessful();
 		$output       = $command_tester->getDisplay();
 		$output_lines = explode(\PHP_EOL, $output);
@@ -22,7 +22,7 @@ test('Build doc with missing config file', function() {
 		chdir('tests');
 		$command        = new Commands\BuildDoc();
 		$command_tester = new CommandTester($command);
-		$command_tester->execute(array());
+		$command_tester->execute([]);
 		$command_tester->assertCommandIsSuccessful();
 		$output       = $command_tester->getDisplay();
 		$output_lines = explode(\PHP_EOL, $output);
@@ -83,7 +83,7 @@ test('Docblock parser', function() {
 			*/';
 		$docblock_factory = DocBlockFactory::createInstance();
 		$docblock         = $docblock_factory->create($docblock);
-		$parse_docblock   = new ParseDocBlock($docblock, array());
+		$parse_docblock   = new ParseDocBlock($docblock, []);
 		$data             = $parse_docblock->getParsedDocblockData();
 
 		expect($data)->toHaveKey('tags');

@@ -12,10 +12,9 @@ To run Daleel, you need to define the configuration. Daleel uses a singleton pat
 use KalimahApps\Daleel\Config;
 
 $config = Config::getInstance();
-$config->defineConfig(
+$config->defineConfig([
 	// Configuration array
-	array()
-);
+]);
 ```
 The minimum requirement for the configuration is to define the `versions` key.
 

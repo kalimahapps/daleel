@@ -5,7 +5,7 @@ namespace KalimahApps\Daleel;
 /**
  * @var
  */
-const PHP_TYPES = array(
+const PHP_TYPES = [
 	'apciterator',
 	'apcuiterator',
 	'appenditerator',
@@ -748,4 +748,4 @@ const PHP_TYPES = array(
 	'zookeepernonodeexception',
 	'zookeeperoperationtimeoutexception',
 	'zookeepersessionexception',
-);
+];

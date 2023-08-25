@@ -258,9 +258,9 @@ class Common {
 	 * @return string         Content with tags replaced.
 	 */
 	static public function replaceTags(string $content): string {
-		$tags = array(
+		$tags = [
 			'{{latest_version}}' => Config::getInstance()->getConfig('latest_version'),
-		);
+		];
 
 		return str_replace(array_keys($tags), array_values($tags), $content);
 	}

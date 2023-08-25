@@ -39,7 +39,7 @@ final class InternalLinkExtension  implements ExtensionInterface {
 				continue;
 			}
 
-			$matches = array();
+			$matches = [];
 			preg_match('/#(.*)$/', $url, $matches);
 
 			if (count($matches) > 0) {

@@ -33,7 +33,7 @@ final class DivisionRenderer implements NodeRendererInterface, XmlNodeRendererIn
 		Division::assertInstanceOf($node);
 
 		// Get list of default classes and titles
-		$defaults = $this->config->get('container/default_titles') ?? array();
+		$defaults = $this->config->get('container/default_titles') ?? [];
 
 		// Get class name from attributes
 		$this->class_name = $node->data->get('class_name', '');
@@ -82,7 +82,7 @@ final class DivisionRenderer implements NodeRendererInterface, XmlNodeRendererIn
 	 * @param Node $node The node to get XML attributes for
 	 */
 	public function getXmlAttributes(Node $node): array {
-		return '' !== $this->class_name ? array('class' => $this->class_name) : array();
+		return '' !== $this->class_name ? array('class' => $this->class_name) : [];
 	}
 
 	/**

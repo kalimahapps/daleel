@@ -34,7 +34,7 @@ class BladeUtil {
 	 * @param array  $data          Extra data to pass to template
 	 * @return string               Template content
 	 */
-	public static function getTemplateContent(string $template_name, array $data = array()) {
+	public static function getTemplateContent(string $template_name, array $data = []) {
 		$view_builder = ViewBuilder::getInstance();
 		return $view_builder->getView($template_name, $data);
 	}
@@ -57,7 +57,7 @@ class BladeUtil {
 
 		// for logo and favicon return only the file name
 		// with base_path prepended (if set)
-		if (in_array($key, array('logo', 'favicon'))) {
+		if (in_array($key, ['logo', 'favicon'])) {
 			$config_value = basename($config_value);
 
 			$base_path = $config_instance->getConfig('base_path');
@@ -74,7 +74,7 @@ class BladeUtil {
 	 */
 	public static function isSearchEnabled() {
 		$config_instance = Config::getInstance();
-		$search_options  = array('app_id', 'api_key', 'index_name');
+		$search_options  = ['app_id', 'api_key', 'index_name'];
 
 		// If any of the search options is empty, then search is disabled
 		foreach ($search_options as $option) {
@@ -203,16 +203,16 @@ class BladeUtil {
 	 * @return array                 Array of types with resolved links
 	 */
 	public static function resolveTypes(array $types, $namespaces_list) {
-		$output_types = array();
+		$output_types = [];
 		foreach ($types as $type) {
 			$type = ltrim($type, '\\');
 
 			if (in_array(strtolower($type), PHP_TYPES)) {
-				$output_types[] = array(
+				$output_types[] = [
 					'name' => $type,
 					'link' => "https://www.php.net/$type",
 					'kind' => 'php',
-				);
+				];
 			} elseif (in_array($type, $namespaces_list)) {
 				// Modify the type so it can be used as a link
 				$link = str_replace('\\', '/', $type);
@@ -221,11 +221,11 @@ class BladeUtil {
 				$display_name = explode('/', $link);
 				$display_name = end($display_name);
 
-				$output_types[] = array(
+				$output_types[] = [
 					'name' => $display_name,
 					'link' => Common::prepareLink(explode('/', $link)),
 					'kind' => 'use',
-				);
+				];
 			} else {
 				/**
 				 * Long name need to be shortened to avoid UI breaking.
@@ -239,11 +239,11 @@ class BladeUtil {
 					$name = $type_parts[0] . '\...\\' . $type_parts[count($type_parts) - 1];
 				}
 
-				$output_types[] = array(
+				$output_types[] = [
 					'name'  => $name,
 					'title' => $type,
 					'kind'  => 'other',
-				);
+				];
 			}
 		}
 

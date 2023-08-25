@@ -72,7 +72,7 @@ class BuildDoc extends Command {
 			$view_builder = ViewBuilder::getInstance();
 
 			// Hold errors to display them at the end (if any)
-			$errors = array();
+			$errors = [];
 
 			$versions = $config_instance->getConfig('versions');
 			foreach ($versions as $version => $version_data) {
@@ -88,8 +88,8 @@ class BuildDoc extends Command {
 
 				// Reset shared data before each version
 				$view_builder->shareMultiple(array(
-						'docs_sidebar' => array(),
-						'api_sidebar'  => array(),
+						'docs_sidebar' => [],
+						'api_sidebar'  => [],
 					));
 
 				// reset build folder to default
