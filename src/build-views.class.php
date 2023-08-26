@@ -52,7 +52,7 @@ class ViewBuilder {
 		$cache_path = Common::getTempPath('views');
 
 		$this->config    = Config::getInstance();
-		$this->blade_one = new BladeOne($views, $cache_path, BladeOne::MODE_DEBUG);
+		$this->blade_one = new BladeOne($views, $cache_path, BladeOne::MODE_AUTO);
 
 		$this->blade_one->throwOnError = true;
 

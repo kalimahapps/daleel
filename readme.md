@@ -4,6 +4,10 @@
 <h1 align="center">Daleel</h1>
 <h3 align="center">PHP documentation generator</h3>
 
+[![Latest Version](https://img.shields.io/packagist/v/KalimahApps/daleel.svg?style=flat-square)](https://packagist.org/packages/KalimahApps/daleel)
+[![Total Downloads](https://img.shields.io/packagist/dt/KalimahApps/daleel.svg?style=flat-square)](https://packagist.org/packages/KalimahApps/daleel)
+[![Software License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+
 ### Documentation
 Documentation for Daleel can be found on the [website](https://daleel.kalimah-apps.com/docs).
 
