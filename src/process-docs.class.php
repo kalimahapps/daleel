@@ -49,40 +49,40 @@ class ProcessDocs {
 	/**
 	 * @var array Markdown converter config
 	 */
-	private $markdown_config = array(
-		'heading_permalink' => array(
+	private $markdown_config = [
+		'heading_permalink' => [
 			'apply_id_to_heading' => true,
 			'id_prefix'           => '',
 			'fragment_prefix'     => '',
 			'symbol'              => '#',
 			'heading_class'       => 'scroll-mt-20 relative group',
 			'html_class'          => 'absolute -translate-x-full pr-2 opacity-0 font-normal group-hover:opacity-100 transition-opacity duration-200 ease-in-out',
-		),
-		'highlighter'       => array(
+		],
+		'highlighter'       => [
 			'add_default_class' => true,
-		),
-		'container'         => array(
-			'default_titles' => array(
+		],
+		'container'         => [
+			'default_titles' => [
 				'info'    => 'INFO',
 				'tip'     => 'TIP',
 				'warning' => 'WARNING',
 				'danger'  => 'DANGER',
-			),
-		),
-		'table'             => array(
-			'wrap' => array(
+			],
+		],
+		'table'             => [
+			'wrap' => [
 				'enabled'    => true,
 				'tag'        => 'div',
-				'attributes' => array('class' => 'table-wrapper'),
-			),
-		),
-		'external_link'     => array(
+				'attributes' => ['class' => 'table-wrapper'],
+			],
+		],
+		'external_link'     => [
 			'open_in_new_window' => true,
 			'html_class'         => 'external-link',
 			'noopener'           => 'external',
 			'noreferrer'         => 'external',
-		),
-	);
+		],
+	];
 
 	/**
 	 * @var MarkdownConverter $converter Markdown converter
@@ -164,12 +164,12 @@ class ProcessDocs {
 		}
 
 		$main['title']       = $this->config->getConfig('title');
-		$main['latest_link'] = Common::prepareLink(array('index'), $this->config->getConfig('latest_version'));
+		$main['latest_link'] = Common::prepareLink(['index'], $this->config->getConfig('latest_version'));
 
 		$this->view_builder->share('page_title', '');
-		$this->view_builder->buildIndexView(
-			array('data' => $main)
-		);
+		$this->view_builder->buildIndexView([
+			'data' => $main
+		]);
 
 		return true;
 	}
@@ -219,16 +219,14 @@ class ProcessDocs {
 				// Since blade template is rendered through base template
 				// and base template is rendered with every view
 				// we need to share data globally to avoid passing it from one view to another
-				$this->view_builder->shareMultiple(
-					array(
-						'toc'          => $toc,
-						'page_title'   => $title,
-						'active_route' => [],
-						'file_path'    => "{$path_without_filename}/{$file_name}",
-					)
-				);
+				$this->view_builder->shareMultiple([
+					'toc'          => $toc,
+					'page_title'   => $title,
+					'active_route' => [],
+					'file_path'    => "{$path_without_filename}/{$file_name}",
+				]);
 
-				$link = array($file_name_without_extension);
+				$link = [$file_name_without_extension];
 				if (!empty($path_without_filename)) {
 					array_unshift($link, $path_without_filename);
 				}
@@ -240,9 +238,9 @@ class ProcessDocs {
 					$path_without_filename,
 					$file_name_without_extension,
 					'single',
-					array(
+					[
 						'content' => $data,
-					)
+					]
 				);
 
 				$progress_bar->advance();
@@ -275,7 +273,7 @@ class ProcessDocs {
 
 		// Loop through all headings and create a nested array
 		foreach ($matching_nodes as $node) {
-			$heading_content = StringContainerHelper::getChildText($node, array(RawMarkupContainerInterface::class));
+			$heading_content = StringContainerHelper::getChildText($node, [RawMarkupContainerInterface::class]);
 
 			$level = $node->getLevel();
 
@@ -306,22 +304,22 @@ class ProcessDocs {
 
 		// Loop through all headings and create a nested array
 		foreach ($matching_nodes as $node) {
-			$heading_content = StringContainerHelper::getChildText($node, array(RawMarkupContainerInterface::class));
+			$heading_content = StringContainerHelper::getChildText($node, [RawMarkupContainerInterface::class]);
 
 			$heading_id = $node->data->get('attributes/id');
 			$level      = $node->getLevel();
 
 			if ($level === 2) {
-				$toc[$heading_id] = array(
+				$toc[$heading_id] = [
 					'label'    => $heading_content,
 					'children' => [],
-				);
+				];
 				$last_h2_id = $heading_id;
 			} else if ($level === 3) {
-				$toc[$last_h2_id]['children'][$heading_id] = array(
+				$toc[$last_h2_id]['children'][$heading_id] = [
 					'label'    => $heading_content,
 					'children' => [],
-				);
+				];
 			}
 		}
 

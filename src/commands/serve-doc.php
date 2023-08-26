@@ -53,7 +53,7 @@ class ServeDoc extends Command {
 
 		Common::getConfigFile($input);
 
-		$process = new Process(array('php', '-S', 'localhost:8000', '-t', 'build'));
+		$process = new Process(['php', '-S', 'localhost:8000', '-t', 'build']);
 		$process->setTimeout(null);
 		$process->setIdleTimeout(null);
 		$process->start();

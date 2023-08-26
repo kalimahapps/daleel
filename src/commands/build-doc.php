@@ -87,10 +87,10 @@ class BuildDoc extends Command {
 				}
 
 				// Reset shared data before each version
-				$view_builder->shareMultiple(array(
+				$view_builder->shareMultiple([
 						'docs_sidebar' => [],
 						'api_sidebar'  => [],
-					));
+					]);
 
 				// reset build folder to default
 				$view_builder->setBuildFolder();

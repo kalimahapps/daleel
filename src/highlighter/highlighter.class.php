@@ -23,7 +23,7 @@ class CodeHighlighter {
 	public function __construct() {
 		$this->highlighter = new Highlighter();
 
-		$this->highlighter->setAutodetectLanguages(array('php'));
+		$this->highlighter->setAutodetectLanguages(['php']);
 	}
 
 	/**
@@ -51,28 +51,28 @@ class CodeHighlighter {
 				$loc = splitCodeIntoArray($code);
 
 				foreach ($loc as $index => $line) {
-					$loc[$index] = vsprintf('<span class="line%s">%s</span>', array(
-							isset($definition['lines'][$index + 1]) ? ' highlighted' : '',
-							$line,
-					));
+					$loc[$index] = vsprintf('<span class="line%s">%s</span>', [
+						isset($definition['lines'][$index + 1]) ? ' highlighted' : '',
+						$line,
+					]);
 				}
 
 				$code = implode('', $loc);
 			}
 
-			return vsprintf('<code class="%s hljs %s" data-lang="%s">%s</code>', array(
-					'language-' . ($language ? $language : $result->language),
-					$result->language,
-					$language ? $language : $result->language,
-					$code,
-				));
+			return vsprintf('<code class="%s hljs %s" data-lang="%s">%s</code>', [
+				'language-' . ($language ? $language : $result->language),
+				$result->language,
+				$language ? $language : $result->language,
+				$code,
+			]);
 		} catch (DomainException $e) {
-			return vsprintf('<code class="%s hljs %s" data-lang="%s">%s</code>', array(
-					"language-{$language}",
-					$language,
-					$language,
-					$code_block,
-				));
+			return vsprintf('<code class="%s hljs %s" data-lang="%s">%s</code>', [
+				"language-{$language}",
+				$language,
+				$language,
+				$code_block,
+			]);
 		}
 	}
 
@@ -83,10 +83,10 @@ class CodeHighlighter {
 	 * @return array           Parsed language and line numbers
 	 */
 	private function parseLangAndLines(?string $language) {
-		$parsed = array(
+		$parsed = [
 			'lang'  => $language,
 			'lines' => [],
-		);
+		];
 
 		if ($language === null) {
 			return $parsed;

@@ -35,9 +35,9 @@ test('Build doc with missing config file', function() {
 test('Build doc with custom config', function() {
 		$command        = new Commands\BuildDoc();
 		$command_tester = new CommandTester($command);
-		$command_tester->execute(array(
+		$command_tester->execute([
 				'--config' => 'tests/custom-config.php',
-			));
+			]);
 		$command_tester->assertCommandIsSuccessful();
 		$output       = $command_tester->getDisplay();
 		$output_lines = explode(\PHP_EOL, $output);
@@ -66,11 +66,11 @@ test('ProcessDocs', function() {
 		$first_version                         = array_key_first($versions);
 		$versions[$first_version]['docs_path'] = 'tests';
 		$config_instance->setCurrentVersion($first_version);
-		$config_instance->defineConfig(array('versions' => $versions));
+		$config_instance->defineConfig(['versions' => $versions]);
 		expect($process_docs->start())->toBeFalse();
 
 		// Test create index not created if main property is not provided
-		$config_instance->defineConfig(array('versions' => $versions, 'main' => false));
+		$config_instance->defineConfig(['versions' => $versions, 'main' => false]);
 		expect($process_docs->createIndex())->toBeFalse();
 	});
 

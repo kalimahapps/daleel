@@ -24,9 +24,9 @@ final class ContainerExtension implements ConfigurableExtensionInterface {
 	 */
 	public function configureSchema(ConfigurationBuilderInterface $builder): void {
 		$builder->addSchema('container',
-			Expect::structure(array(
+			Expect::structure([
 					'default_titles' => Expect::[],
-				))
+				])
 		);
 	}
 

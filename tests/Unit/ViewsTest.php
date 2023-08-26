@@ -22,24 +22,22 @@ function get_snapshot(string $snapshot_file): string {
 
 test('Single view', function() {
 		$config = Config::getInstance();
-		$config->defineConfig(array(
+		$config->defineConfig([
 				'title'    => 'Daleel',
 				'versions' => [],
-			));
+			]);
 
 		$view_builder = ViewBuilder::getInstance();
 		$view_builder->setBuildFolder();
-		$view_builder->shareMultiple(
-			array(
-				'toc'          => [],
-				'page_title'   => 'Test page',
-				'active_route' => 'test/data',
-			)
-		);
+		$view_builder->shareMultiple([
+			'toc'          => [],
+			'page_title'   => 'Test page',
+			'active_route' => 'test/data',
+		]);
 
-		$data = $view_builder->getBladeOne()->run('single', array(
-				'content' => 'Sample content',
-		));
+		$data = $view_builder->getBladeOne()->run('single', [
+			'content' => 'Sample content',
+		]);
 
 		$snapshot = get_snapshot('single');
 		expect($data)->toBe($snapshot);
@@ -47,46 +45,43 @@ test('Single view', function() {
 
 test('Object view', function() {
 		$config = Config::getInstance();
-		$config->defineConfig(array(
-				'title'    => 'Daleel',
-				'versions' => [],
-			));
+		$config->defineConfig([
+			'title'    => 'Daleel',
+			'versions' => [],
+		]);
 
 		$view_builder = ViewBuilder::getInstance();
 		$view_builder->setBuildFolder();
-		$view_builder->shareMultiple(
-			array(
-				'toc'          => [],
-				'active_route' => 'test/data',
-			)
-		);
+		$view_builder->shareMultiple([
+			'toc'          => [],
+			'active_route' => 'test/data',
+		]);
 
-		$data = $view_builder->getBladeOne()->run('object', array(
-				'link'       => 'test/data',
-				'kind'       => 'class',
-				'docblock'   => array(
-					'summary'     => 'Object summary',
-					'description' => 'Object description',
-				),
-				'extends'    => [],
-				'methods'    => array(
-					'isActiveRoute' => array(
-						'visibility' => 9,
-						'docblock'   => array(
-							'summary' => 'Check if the current route is the displayed route.',
-						),
-					),
-				),
-				'properties' => array(
-					'active_path' => array(
-						'visibility' => 9,
-						'docblock'   => array(
-							'summary' => 'Current displayed route',
-						),
-					),
-				),
-			)
-		);
+		$data = $view_builder->getBladeOne()->run('object', [
+			'link'       => 'test/data',
+			'kind'       => 'class',
+			'docblock'   => [
+				'summary'     => 'Object summary',
+				'description' => 'Object description',
+			],
+			'extends'    => [],
+			'methods'    => [
+				'isActiveRoute' => [
+					'visibility' => 9,
+					'docblock'   => [
+						'summary' => 'Check if the current route is the displayed route.',
+					],
+				],
+			],
+			'properties' => [
+				'active_path' => [
+					'visibility' => 9,
+					'docblock'   => [
+						'summary' => 'Current displayed route',
+					],
+				],
+			],
+		]);
 
 		$snapshot = get_snapshot('object');
 		expect($data)->toBe($snapshot);

@@ -95,15 +95,15 @@ class Visitor extends NodeVisitorAbstract {
 
 		$name = $node->name->toString();
 
-		$this->classes[$name] = array(
+		$this->classes[$name] = [
 			'constants'  => $this->processMembers($node->getConstants(), 'constant'),
 			'properties' => $this->processMembers($node->getProperties(), 'property'),
 			'methods'    => $this->processMethods($node->getMethods()),
-			'flags'      => array(
+			'flags'      => [
 				'abstract' => $node->isAbstract(),
 				'final'    => $node->isFinal(),
-			),
-		);
+			],
+		];
 
 		// Get and parse docblock if exists
 		$comment = $node->getDocComment();
@@ -116,7 +116,7 @@ class Visitor extends NodeVisitorAbstract {
 		$trait_uses = $node->getTraitUses();
 
 		if ($extends) {
-			$this->classes[$name]['extends'] = array($extends->toString());
+			$this->classes[$name]['extends'] = [$extends->toString()];
 		}
 
 		if ($implements) {
@@ -174,21 +174,21 @@ class Visitor extends NodeVisitorAbstract {
 		if ($node instanceof Trait_) {
 			$name = $node->name->toString();
 
-			$this->traits[$name] = array(
+			$this->traits[$name] = [
 				'constants'  => $this->processMembers($node->getConstants(), 'constant'),
 				'properties' => $this->processMembers($node->getProperties(), 'property'),
 				'methods'    => $this->processMethods($node->getMethods()),
-			);
+			];
 			return;
 		}
 
 		if ($node instanceof Interface_) {
 			$name = $node->name->toString();
 
-			$this->interfaces[$name] = array(
+			$this->interfaces[$name] = [
 				'constants' => $this->processMembers($node->getConstants(), 'constant'),
 				'methods'   => $this->processMethods($node->getMethods()),
-			);
+			];
 			return;
 		}
 
@@ -233,20 +233,21 @@ class Visitor extends NodeVisitorAbstract {
 		/*
 		* Convert namespace parts to a a nested array
 		* e.g. ['Illuminate', 'Auth', 'Access'] becomes
-		* array(
-		* 	'namepaces' => array(
-		* 		'Illuminate' => array(
-		* 			'namespaces' => array(
-		* 				'Auth' => array(
-		* 					'namespaces' => array(
-		* 						'Access' => []
-		* 					)
-		* 				)
-		* 			)
-		* 		)
-		* 	)
+		* [
+		* 	'namepaces' => [
+		* 		'Illuminate' => [
+		* 			'namespaces' => [
+		* 				'Auth' => [
+		* 					'namespaces' => [
+		* 						'Access' => [],
+		* 					],
+		* 				],
+		* 			],
+		* 		],
+		* 	]
+		* ]
 		*/
-		$namespace_tree = array('namespaces' => []);
+		$namespace_tree = ['namespaces' => []];
 		foreach ($parts as $part) {
 			if (!isset($parent)) {
 				$parent = &$namespace_tree;
@@ -258,12 +259,12 @@ class Visitor extends NodeVisitorAbstract {
 		// Since $parent is a reference, at this point it is pointing to the last
 		// namespace part. We can now add the classes, interfaces and traits to it.
 		// Only add non-empty arrays
-		$parent = array_filter(array(
+		$parent = array_filter([
 				'classes'    => $this->classes,
 				'interfaces' => $this->interfaces,
 				'traits'     => $this->traits,
 				'functions'  => $this->functions,
-		));
+		]);
 
 		if (!empty($parent)) {
 			$this->tree = $namespace_tree;
@@ -375,9 +376,9 @@ class Visitor extends NodeVisitorAbstract {
 				$members[$name]['docblock']['description'] = $description;
 			}
 
-			$members[$name]['flags'] = array(
+			$members[$name]['flags'] = [
 				'visibility' => $this->getVisibility($node),
-			);
+			];
 
 			if ($type === 'property') {
 				$members[$name]['flags']['static']   = $node->isStatic();
@@ -388,7 +389,7 @@ class Visitor extends NodeVisitorAbstract {
 			if (isset($members[$name]['docblock']['tags']['deprecated'])) {
 				// Add deprecated to the top of flags array
 				$members[$name]['flags'] = array_merge(
-					array('deprecated' => true),
+					['deprecated' => true],
 					$members[$name]['flags']
 				);
 			}
@@ -418,18 +419,18 @@ class Visitor extends NodeVisitorAbstract {
 				$methods[$name]['docblock'] = $this->processDocBlock($comment->getText());
 			}
 
-			$methods[$name]['flags'] = array(
+			$methods[$name]['flags'] = [
 				'visibility' => $this->getVisibility($node),
 				'static'     => $node->isStatic(),
 				'abstract'   => $node->isAbstract(),
 				'final'      => $node->isFinal(),
-			);
+			];
 
 			// if docblock has deprecated tag, set deprecated flag to true
 			if (isset($methods[$name]['docblock']['tags']['deprecated'])) {
 				// Add deprecated to the top of flags array
 				$methods[$name]['flags'] = array_merge(
-					array('deprecated' => true),
+					['deprecated' => true],
 					$methods[$name]['flags']
 				);
 			}
@@ -452,12 +453,12 @@ class Visitor extends NodeVisitorAbstract {
 				// 	$types = $param->type->name ?? '';
 				// 	$types = explode('|', $types);
 				// }
-				$methods[$name]['params'][$param_name] = array(
+				$methods[$name]['params'][$param_name] = [
 					'types'    => explode('|', $types),
 					'byRef'    => $param->byRef,
 					'variadic' => $param->variadic,
 					'nullable' => $param->type instanceof NullableType,
-				);
+				];
 			}
 		}
 

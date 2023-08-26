@@ -83,7 +83,7 @@ class ProcessRemote {
 		$response = $client->request(
 			'GET',
 			$url,
-			array('on_progress' => function(int $dl_now, int $dl_size, array $info) use ($progress_bar) {
+			['on_progress' => function(int $dl_now, int $dl_size, array $info) use ($progress_bar) {
 					// Update max if not already set
 					if ($progress_bar->getMaxSteps() === 0 && $dl_size > 0) {
 						$progress_bar->setMaxSteps($dl_size);
@@ -94,7 +94,7 @@ class ProcessRemote {
 						$progress_bar->setProgress($dl_now);
 					}
 				},
-			)
+			]
 		);
 
 		$progress_bar->finish();
@@ -134,9 +134,9 @@ class ProcessRemote {
 			$this->extraction_path = "{$this->extraction_path}/{$clean_path}";
 		}
 
-		$this->config->updateVersionsConfig(array(
-				$this->config_key => $this->extraction_path,
-			));
+		$this->config->updateVersionsConfig([
+			$this->config_key => $this->extraction_path,
+		]);
 	}
 
 	/**

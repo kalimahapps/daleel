@@ -51,13 +51,13 @@ final class DivisionRenderer implements NodeRendererInterface, XmlNodeRendererIn
 
 		$title_div = '';
 		if ($title !== '') {
-			$title_div = new HtmlElement('div', array('class' => 'custom-container-title'), $title);
+			$title_div = new HtmlElement('div', ['class' => 'custom-container-title'], $title);
 		}
 
 		// Create a div for the content
 		$content_div = new HtmlElement(
 			'div',
-			array('class' => 'custom-container-content'),
+			['class' => 'custom-container-content'],
 			$child_renderer->renderNodes($node->children())
 			);
 
@@ -82,7 +82,7 @@ final class DivisionRenderer implements NodeRendererInterface, XmlNodeRendererIn
 	 * @param Node $node The node to get XML attributes for
 	 */
 	public function getXmlAttributes(Node $node): array {
-		return '' !== $this->class_name ? array('class' => $this->class_name) : [];
+		return '' !== $this->class_name ? ['class' => $this->class_name] : [];
 	}
 
 	/**

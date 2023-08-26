@@ -17,7 +17,7 @@ final class ImagePathExtension  implements ExtensionInterface {
 	 * @param EnvironmentBuilderInterface $environment Environment builder
 	 */
 	public function register(EnvironmentBuilderInterface $environment): void {
-		$environment->addEventListener(DocumentParsedEvent::class, array($this, 'documentCallback'), 0);
+		$environment->addEventListener(DocumentParsedEvent::class, [$this, 'documentCallback'], 0);
 	}
 
 	/**
